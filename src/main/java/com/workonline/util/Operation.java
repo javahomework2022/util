@@ -84,5 +84,18 @@ public class Operation{
         }
         return this;
     }
+    /*
+    重写clone方法
+    */
+    @Override
+    public Object clone() {
+        Operation operation = null;
+        try{
+            operation = (Operation) super.clone();
+        }catch(CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return operation;
+    }
 }
 
