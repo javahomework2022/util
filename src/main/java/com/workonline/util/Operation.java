@@ -84,6 +84,7 @@ public class Operation{
         }
         return this;
     }
+    
     /*
     重写clone方法
     */
