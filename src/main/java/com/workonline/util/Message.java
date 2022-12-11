@@ -1,11 +1,9 @@
 package com.workonline.util;
 
-/**
- * @className: Message
- * @description: TODO
- * @date: 2022/12/9 21:49
- */
-public class Message {
+
+import java.io.Serializable;
+
+public class Message implements Serializable {
     /* command c->s
     register #username #pwd
     login #username #pwd
@@ -24,16 +22,16 @@ public class Message {
 
     create_room_success #roomid
 
-    enter_room_success
+    enter_room_success #roomid
     enter_room_fail
 
     room_closed #roomid
 
     broadcast #roomid $operation
     send_document #version #roomid $document
-     */
+    */
     public String command;
-    public String user_id;
+    public String user_id; //客户端给服务端发送需要，服务端给客户端不需要发送这个东西
     public Text_Operation operation;
     public String document;
 

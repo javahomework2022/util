@@ -1,5 +1,6 @@
 package com.workonline.util;
 
+import java.io.Serializable;
 import java.util.*;
 
 /*
@@ -12,7 +13,7 @@ import java.util.*;
         operation.delete(n),这是个泛型，n可以删去的字符串，也可以是删去的字符串长度；
 */
 
-public class Operation{
+public class Operation implements Serializable {
     //存储标准操作
     List<AtomicOperation> operations = new LinkedList<>();
     //操作作用于的字符串的长度
