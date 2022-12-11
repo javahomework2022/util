@@ -57,7 +57,7 @@ public class Operation implements Serializable {
             }
             else {
                 AtomicOperation newAtomicOperation = new Insert(string);
-                this.operations.add(this.operations.size()-2,newAtomicOperation);
+                this.operations.add(this.operations.size()-1,newAtomicOperation);
             }
         }
         else {
@@ -98,6 +98,10 @@ public class Operation implements Serializable {
             e.printStackTrace();
         }
         return operation;
+    }
+
+    public List<AtomicOperation> getOperations() {
+        return operations;
     }
 }
 

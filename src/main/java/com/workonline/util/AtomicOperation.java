@@ -36,6 +36,11 @@ class Retain extends AtomicOperation{
     public Retain(int length){
         this.length = length;
     }
+
+    @Override
+    public String toString() {
+        return "retain"+length;
+    }
 }
 
 class Insert extends AtomicOperation{
@@ -43,11 +48,21 @@ class Insert extends AtomicOperation{
     public Insert(String string){
         this.string = string;
     }
+
+    @Override
+    public String toString() {
+        return "Insert"+string;
+    }
 }
 
 class Delete extends AtomicOperation{
     int length;//删除的字符串长度
     public Delete(int length){
         this.length = length;
+    }
+
+    @Override
+    public String toString() {
+        return "Delete"+length;
     }
 }
