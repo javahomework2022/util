@@ -31,7 +31,6 @@ public class Message implements Serializable {
     send_document #version #roomid $document
     */
     public String command;
-    public String user_id; //客户端给服务端发送需要，服务端给客户端不需要发送这个东西
     public Text_Operation operation;
     public String document;
 
