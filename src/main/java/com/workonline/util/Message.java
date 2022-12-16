@@ -11,6 +11,7 @@ public class Message implements Serializable {
     enter #roomid
     quit_room #roomid
     close_room #roomid
+    log_out #username
     operation #roomid $operation
 
     s->c
