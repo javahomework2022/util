@@ -1,9 +1,11 @@
 package com.workonline.util;
 
+import java.io.Serializable;
+
 /*
 本类中的操作是原子操作,分为保持、插入、删除
  */
-public abstract class AtomicOperation implements Cloneable{
+public abstract class AtomicOperation implements Cloneable, Serializable {
     /*
     以下实现判断原子操作是什么
      */
