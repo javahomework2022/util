@@ -1,0 +1,59 @@
+Index: src/main/java/com/workonline/util/Text_Operation.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.workonline.util;\r\n\r\nimport java.io.Serializable;\r\n\r\npublic class Text_Operation implements Serializable {\r\n    public int version;\r\n    public String username;\r\n    public Operation operation;\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/workonline/util/Text_Operation.java b/src/main/java/com/workonline/util/Text_Operation.java
+--- a/src/main/java/com/workonline/util/Text_Operation.java	
++++ b/src/main/java/com/workonline/util/Text_Operation.java	
+@@ -6,4 +6,10 @@
+     public int version;
+     public String username;
+     public Operation operation;
++
++    public Text_Operation(int version, String username, Operation operation) {
++        this.version = version;
++        this.username = username;
++        this.operation = operation;
++    }
+ }
+Index: src/main/java/com/workonline/util/AtomicOperation.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.workonline.util;\r\n\r\n/*\r\n本类中的操作是原子操作,分为保持、插入、删除\r\n */\r\npublic abstract class AtomicOperation implements Cloneable{\r\n    /*\r\n    以下实现判断原子操作是什么\r\n     */\r\n    public boolean isInsert(){\r\n        return this instanceof Insert;\r\n    }\r\n    public boolean isDelete(){\r\n        return this instanceof Delete;\r\n    }\r\n    public boolean isRetain(){\r\n        return this instanceof Retain;\r\n    }\r\n    /*\r\n    重写clone方法\r\n    */\r\n    @Override\r\n    public Object clone() {\r\n        AtomicOperation atomicOperation = null;\r\n        try{\r\n            atomicOperation = (AtomicOperation) super.clone();\r\n        }catch(CloneNotSupportedException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return atomicOperation;\r\n    }\r\n}\r\n\r\nclass Retain extends AtomicOperation{\r\n    int length;\r\n    public Retain(int length){\r\n        this.length = length;\r\n    }\r\n\r\n    @Override\r\n    public String toString() {\r\n        return \"retain\"+length;\r\n    }\r\n}\r\n\r\nclass Insert extends AtomicOperation{\r\n    String string;//插入的字符串\r\n    public Insert(String string){\r\n        this.string = string;\r\n    }\r\n\r\n    @Override\r\n    public String toString() {\r\n        return \"Insert\"+string;\r\n    }\r\n}\r\n\r\nclass Delete extends AtomicOperation{\r\n    int length;//删除的字符串长度\r\n    public Delete(int length){\r\n        this.length = length;\r\n    }\r\n\r\n    @Override\r\n    public String toString() {\r\n        return \"Delete\"+length;\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/workonline/util/AtomicOperation.java b/src/main/java/com/workonline/util/AtomicOperation.java
+--- a/src/main/java/com/workonline/util/AtomicOperation.java	
++++ b/src/main/java/com/workonline/util/AtomicOperation.java	
+@@ -16,6 +16,27 @@
+     public boolean isRetain(){
+         return this instanceof Retain;
+     }
++
++    public int getRetainLength() {
++        if(this instanceof Retain)
++            return ((Retain)this).length;
++        else
++            return -1;
++    }
++
++    public String getInsertString() {
++        if(this instanceof Insert)
++            return ((Insert)this).string;
++        else
++            return null;
++    }
++
++    public int getDeleteLength() {
++        if(this instanceof Delete)
++            return ((Delete)this).length;
++        else
++            return -1;
++    }
+     /*
+     重写clone方法
+     */

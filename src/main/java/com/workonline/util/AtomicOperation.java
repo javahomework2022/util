@@ -16,6 +16,27 @@ public abstract class AtomicOperation implements Cloneable{
     public boolean isRetain(){
         return this instanceof Retain;
     }
+
+    public int getRetainLength() {
+        if(this instanceof Retain)
+            return ((Retain)this).length;
+        else
+            return -1;
+    }
+
+    public String getInsertString() {
+        if(this instanceof Insert)
+            return ((Insert)this).string;
+        else
+            return null;
+    }
+
+    public int getDeleteLength() {
+        if(this instanceof Delete)
+            return ((Delete)this).length;
+        else
+            return -1;
+    }
     /*
     重写clone方法
     */
