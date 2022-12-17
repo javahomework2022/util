@@ -52,6 +52,7 @@ public abstract class AtomicOperation implements Cloneable, Serializable {
         }
         return atomicOperation;
     }
+
 }
 
 class Retain extends AtomicOperation{

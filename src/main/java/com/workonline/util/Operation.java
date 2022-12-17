@@ -103,5 +103,15 @@ public class Operation implements Serializable,Cloneable {
     public List<AtomicOperation> getOperations() {
         return operations;
     }
+
+    @Override
+    public String toString() {
+        String ans = "";
+        for (var o:operations) {
+            ans += operations.toString()+"\n";
+        }
+        ans += resultLength;
+        return ans;
+    }
 }
 

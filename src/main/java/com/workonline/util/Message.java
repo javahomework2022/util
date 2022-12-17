@@ -1,9 +1,13 @@
 package com.workonline.util;
 
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class Message implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 4720672870300182992L;
     /* command c->s
     register #username #pwd
     login #username #pwd
