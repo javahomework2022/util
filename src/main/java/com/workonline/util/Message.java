@@ -23,13 +23,12 @@ public class Message implements Serializable {
 
     create_room_success #roomid
 
-    enter_room_success #roomid
+    enter_room_success #version #roomid $document
     enter_room_fail
 
     room_closed #roomid
 
     broadcast #roomid $operation
-    send_document #version #roomid $document
     */
     public String command;
     public Text_Operation operation;
