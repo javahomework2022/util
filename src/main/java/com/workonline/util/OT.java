@@ -1,20 +1,24 @@
+/**
+ *这个包中包含前后端均需要使用的内容.
+ * @author
+ * @version JDK17
+ *
+ */
 package com.workonline.util;
 
 import java.util.AbstractMap;
 import java.util.List;
 
-/*
-OT中目前实现两个方法：
-1.transform方法：传入A，B两个操作，<A',B'> = transform(A,B)，其中A'为先B后A',B'为先A后B’，对于这种操作顺序，能保证正确；
-    使用方法：AbstractMap.SimpleEntry<Operation,Operation> entry = OT.transform(operation1,operation2)；
-            A' = entry.getKey();B' = entry.getValue();
-2.compose方法：传入A，B两个操作，其中B为A之后，在没有经过服务器确认之前，用户又对于其文本做的操作，compose方法将其合为一个操作。
-    使用方法：Operation operation = OT.compose(operationA,operationB);注意B一定是紧接着A的操作；
+/**
+ * 该类实现OT算法的核心内容：transform方法和compose方法.
  */
-
 public class OT {
-    /*
-    该函数实现将两个并发操作转换为正确操作，注意其中需要对两种操作归属的原子操作进行枚举
+    /**
+     * 该函数实现将两个并发操作转换为顺序执行的正确操作.
+     * @param operation1 操作转换是相对于operation1执行的
+     * @param operation2 需要转换的操作
+     * @return 一对operation，其中key值为转换后的operation2
+     * @throws Exception 当执行operation1需要的初始长度不等于执行operation2需要的初始长度时抛出异常
      */
     public static AbstractMap.SimpleEntry<Operation,Operation> transform(Operation operation1, Operation operation2)throws Exception{
         if(operation1.originalLength!=operation2.originalLength)
@@ -206,9 +210,13 @@ public class OT {
         }
         return new AbstractMap.SimpleEntry<Operation,Operation>(rightOperation1,rightOperation2);
     }
-    /*
-    该方法实现将两个针对于一个文档的连续操作进行合并，使之成为一个操作
-    */
+    /**
+     * 该方法实现将两个针对于一个文档的连续操作进行合并，使之成为一个操作
+     * @param operation1 对于文档先进行的一个操作
+     * @param operation2 对于同一个文档紧接着operation1进行的操作
+     * @return 一个合并后的operation
+     * @throws Exception 当执行operation1后文档的长度不等于执行operation2需要的初始长度时抛出异常
+     */
     public static Operation compose(Operation operation1,Operation operation2) throws Exception{
         if(operation1.resultLength!=operation2.originalLength)
             throw new Exception("The originalLength of the second operation has to be the resultLength of the first operation");

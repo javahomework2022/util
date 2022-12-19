@@ -1,18 +1,19 @@
+/**
+ *这个包中包含前后端均需要使用的内容.
+ * @author
+ * @version JDK17
+ *
+ */
 package com.workonline.util;
 
 import java.io.Serializable;
 import java.util.*;
 
-/*
-该类将用户的操作转化为对于文本的原子操作集合，共为三种，分别为保持(Retain)、插入(Insert)和删除(Delete)。
-
-注意要先建一个operation，之后使用里面的retain、insert、delete方法向空的operation里面加原子操作，此条注释针对于将文本转化为操作时(这方法没写)
-
-使用方法：operation.retain(int n),n为保持的字符串长度，如果是0可以不写；
-        operation.insert(String s),s为插入的字符串；
-        operation.delete(n),这是个泛型，n可以删去的字符串，也可以是删去的字符串长度；
-*/
-
+/**
+ *该类将用户的操作转化为对于文本的原子操作集合，共为三种，分别为保持(Retain)、插入(Insert)和删除(Delete).
+ * <p>
+ * 使用方法：operation.retain(int n),n为保持的字符串长度，如果是0可以不写；operation.insert(String s),s为插入的字符串；operation.delete(n),这是个泛型，n可以删去的字符串，也可以是删去的字符串长度.
+ */
 public class Operation implements Serializable,Cloneable {
     //存储标准操作
     List<AtomicOperation> operations = new LinkedList<>();
@@ -20,14 +21,18 @@ public class Operation implements Serializable,Cloneable {
     int originalLength;
     //操作应用后字符串长度
     int resultLength;
-    //构造方法
+    /**
+     * 构造器.
+     */
     public Operation(){
         this.originalLength = 0;
         this.resultLength = 0;
     }
 
-    /*
-    以下实现将保持、插入、删除添加到一个新的操作集合中，在构建新的操作时需要用到
+    /**
+     * 实现将Retain操作添加到操作列表中
+     * @param len Retain操作的长度
+     * @return 操作列表
      */
     public Operation retain(int len){
         if(len == 0)
@@ -43,6 +48,11 @@ public class Operation implements Serializable,Cloneable {
         }
         return this;
     }
+    /**
+     * 实现将Insert操作添加到操作列表中
+     * @param string Insert操作的字符串
+     * @return 操作列表
+     */
     public Operation insert(String string){
         if(string.equals("")){
             return this;
@@ -66,6 +76,13 @@ public class Operation implements Serializable,Cloneable {
         }
         return this;
     }
+
+    /**
+     * 实现将Delete操作添加到操作列表中.
+     * @param t Delete操作的字符串或其长度
+     * @return 操作列表
+     * @param <T> String或Integer
+     */
     public <T> Operation delete(T t){
         int len;
         if(t instanceof String){
@@ -85,10 +102,11 @@ public class Operation implements Serializable,Cloneable {
         }
         return this;
     }
-    
-    /*
-    重写clone方法
-    */
+
+    /**
+     * 重写clone方法
+     * @return Operation
+     */
     @Override
     public Object clone() {
         Operation operation = null;
@@ -104,6 +122,10 @@ public class Operation implements Serializable,Cloneable {
         return operations;
     }
 
+    /**
+     * 重写toString方法
+     * @return String
+     */
     @Override
     public String toString() {
         String ans = "";
