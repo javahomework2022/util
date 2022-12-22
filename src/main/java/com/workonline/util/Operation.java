@@ -1,6 +1,6 @@
 /**
  *这个包中包含前后端均需要使用的内容.
- * @author
+ * @author 不要爆零小组
  * @version JDK17
  *
  */
@@ -15,11 +15,17 @@ import java.util.*;
  * 使用方法：operation.retain(int n),n为保持的字符串长度，如果是0可以不写；operation.insert(String s),s为插入的字符串；operation.delete(n),这是个泛型，n可以删去的字符串，也可以是删去的字符串长度.
  */
 public class Operation implements Serializable,Cloneable {
-    //存储标准操作
+    /**
+     * 原子操作列表.
+     */
     List<AtomicOperation> operations = new LinkedList<>();
-    //操作作用于的字符串的长度
+    /**
+     * 操作作用于的字符串的长度.
+     */
     int originalLength;
-    //操作应用后字符串长度
+    /**
+     * 操作应用后字符串长度.
+     */
     int resultLength;
     /**
      * 构造器.
